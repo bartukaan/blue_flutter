@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:hex/hex.dart';
 
-
 class BluetoothClassicScreen extends StatefulWidget {
   final BluetoothDevice device;
 
@@ -19,6 +18,7 @@ class BluetoothClassicScreen extends StatefulWidget {
 
 class _BluetoothClassicScreen extends State<BluetoothClassicScreen> {
   Timer _timer;
+
   startTimeout([int milliseconds]) {
     return _timer = Timer.periodic(new Duration(seconds: 2), (timer) {
       handleTimeout();
@@ -37,6 +37,7 @@ class _BluetoothClassicScreen extends State<BluetoothClassicScreen> {
   bool isConnecting = true;
   bool _isShowAnimation = false;
   String _isShowAnimationFileName = "";
+
   bool get isConnected => connection != null && connection.isConnected;
   bool isDisconnecting = false;
 
@@ -47,7 +48,7 @@ class _BluetoothClassicScreen extends State<BluetoothClassicScreen> {
       BluetoothConnection.toAddress(widget.device.address).then((_connection) {
         connection = _connection;
         connectedDeviceService().then((data) {
-       /*   NotificationService.getFlushBar("Modem ayarları yapılıyor ⚙️", "Modem ayarları gönderilidi ✔ ", context);
+          /*   NotificationService.getFlushBar("Modem ayarları yapılıyor ⚙️", "Modem ayarları gönderilidi ✔ ", context);
           _sendMessage(KomutService.rfModeSet());*/
         });
         setState(() {
@@ -78,10 +79,18 @@ class _BluetoothClassicScreen extends State<BluetoothClassicScreen> {
   Widget build(BuildContext context) {
     Timer(
       Duration(seconds: 1),
-          () => _scrollController.jumpTo(_scrollController.position.maxScrollExtent),
+      () =>
+          _scrollController.jumpTo(_scrollController.position.maxScrollExtent),
     );
     return MasterScreen(
-        context, _isShowAnimation, _isShowAnimationFileName, widget.device.name, sayacList, _selectedIndex, _selectedSayacNo, _scrollController,
+        context,
+        _isShowAnimation,
+        _isShowAnimationFileName,
+        widget.device.name,
+        sayacList,
+        _selectedIndex,
+        _selectedSayacNo,
+        _scrollController,
         onVanaAcPressed: vanaAcIsmri,
         onreadOutAll: readOutAll,
         onRefresh: onRefresh,
@@ -132,7 +141,8 @@ class _BluetoothClassicScreen extends State<BluetoothClassicScreen> {
   void meterFiltered(String sayacNo) {
     setState(() {
       this._selectedIndex = 1;
-      sayacList = sayacList.where((element) => element.sayacNo == sayacNo).toList();
+      sayacList =
+          sayacList.where((element) => element.sayacNo == sayacNo).toList();
     });
   }
 
@@ -166,7 +176,7 @@ class _BluetoothClassicScreen extends State<BluetoothClassicScreen> {
 
   void parseMethod(List<int> tempData) {
     var hexData = HEX.encode(tempData);
- /*   var result = ParserService.parserStart(hexData);
+    /*   var result = ParserService.parserStart(hexData);
     if (result != null) {
       if (result == CalisacakFonksiyonGetir[CalisacakFonksiyon.rEADOUTS_OKU_ALL]) {
         setState(() {
@@ -188,7 +198,7 @@ class _BluetoothClassicScreen extends State<BluetoothClassicScreen> {
   }
 
   void vanaAcIsmri(String sayacNo) {
-  //  NotificationService.getFlushBarWithButton("Sayaç Numarası :" + sayacNo, "Vana aç iş emri gönderildi ✔ 💧", context);
+    //  NotificationService.getFlushBarWithButton("Sayaç Numarası :" + sayacNo, "Vana aç iş emri gönderildi ✔ 💧", context);
   }
 
   void _onDataReceived(Uint8List data) {
@@ -206,9 +216,13 @@ class _BluetoothClassicScreen extends State<BluetoothClassicScreen> {
     }
 
     try {
-      connection.output.add(HEX.decode(command)); // ("3,4,5,0") ==>  O3 04 05 00
+      connection.output
+          .add(HEX.decode(command)); // ("3,4,5,0") ==>  O3 04 05 00
 
-      print("Gönderilen : " + command + " HEX " + (HEX.decode(command).toString()));
+      print("Gönderilen : " +
+          command +
+          " HEX " +
+          (HEX.decode(command).toString()));
 
       await connection.output.allSent;
     } catch (e) {

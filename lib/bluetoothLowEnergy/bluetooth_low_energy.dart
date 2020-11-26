@@ -4,8 +4,6 @@ import 'package:flutter_blue/flutter_blue.dart';
 import 'bluetooth_low_energy_devices_list.dart';
 import 'bluetooth_low_energy_main.dart';
 
-
-
 class SelectBluetoothLowEnergyDevicePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -43,7 +41,10 @@ class BluetoothOffScreen extends StatelessWidget {
             ),
             Text(
               'Bluetooth Adapter is ${state != null ? state.toString().substring(15) : 'not available'}.',
-              style: Theme.of(context).primaryTextTheme.subtitle1.copyWith(color: Colors.white),
+              style: Theme.of(context)
+                  .primaryTextTheme
+                  .subtitle1
+                  .copyWith(color: Colors.white),
             ),
           ],
         ),
@@ -69,17 +70,24 @@ class FindDevicesScreen extends StatelessWidget {
               if (snapshot.data) {
                 return FittedBox(
                   child: Container(
-                      margin: new EdgeInsets.all(16.0), child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white))),
+                      margin: new EdgeInsets.all(16.0),
+                      child: CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.white))),
                 );
               } else {
-                return IconButton(icon: Icon(Icons.replay), onPressed: () => FlutterBlue.instance.startScan(timeout: Duration(seconds: 4)));
+                return IconButton(
+                    icon: Icon(Icons.replay),
+                    onPressed: () => FlutterBlue.instance
+                        .startScan(timeout: Duration(seconds: 4)));
               }
             },
           ),
         ],
       ),
       body: RefreshIndicator(
-        onRefresh: () => FlutterBlue.instance.startScan(timeout: Duration(minutes: 400)),
+        onRefresh: () =>
+            FlutterBlue.instance.startScan(timeout: Duration(minutes: 400)),
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
@@ -90,16 +98,18 @@ class FindDevicesScreen extends StatelessWidget {
                   children: snapshot.data
                       .map(
                         (r) => BLEDeviceListEntry(
-                      // => bluetooth cihaz listesi getir
-                      device: r.device,
-                      rssi: r.rssi,
-                      onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                        //r.device.connect();
+                          // => bluetooth cihaz listesi getir
+                          device: r.device,
+                          rssi: r.rssi,
+                          onTap: () => Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) {
+                            //r.device.connect();
 
-                        return MainScreen(r.device); // => bluetooth cihaz bağlan ve route işlemi
-                      })),
-                    ),
-                  )
+                            return MainScreen(r
+                                .device); // => bluetooth cihaz bağlan ve route işlemi
+                          })),
+                        ),
+                      )
                       .where((element) => element.devicename != "")
                       .toList(),
                 ),

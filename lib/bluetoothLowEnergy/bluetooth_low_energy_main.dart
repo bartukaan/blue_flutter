@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import "package:hex/hex.dart";
 
-
-
 class MainScreen extends StatefulWidget {
   BluetoothDevice device;
 
@@ -21,6 +19,7 @@ class MainScreen extends StatefulWidget {
 
 class MainScreenState extends State {
   Timer _timer;
+
   startTimeout([int milliseconds]) {
     return _timer = Timer.periodic(new Duration(seconds: 1), (timer) {
       handleTimeout();
@@ -37,6 +36,7 @@ class MainScreenState extends State {
   BluetoothDevice device;
   bool _isShowAnimation = false;
   String _isShowAnimationFileName = "";
+
   MainScreenState(BluetoothDevice device) {
     this.device = device;
     startTimeout();
@@ -49,7 +49,7 @@ class MainScreenState extends State {
       setState(() {
         connectDevice().then((value) {
           connectedDeviceDiscoverServices().then((data) {
-       //     NotificationService.getFlushBar("Modem ayarları yapılıyor ⚙️ ", "Modem ayarları gönderilidi ✔ ", context);
+            //     NotificationService.getFlushBar("Modem ayarları yapılıyor ⚙️ ", "Modem ayarları gönderilidi ✔ ", context);
             this.characteristic = data;
             listenStart(this.characteristic);
           });
@@ -77,7 +77,8 @@ class MainScreenState extends State {
   Widget build(BuildContext context) {
     Timer(
       Duration(seconds: 1),
-          () => _scrollController.jumpTo(_scrollController.position.maxScrollExtent),
+      () =>
+          _scrollController.jumpTo(_scrollController.position.maxScrollExtent),
     );
     return MasterScreen(
       context,
@@ -122,8 +123,8 @@ class MainScreenState extends State {
       }
 
       if (value.length == 0) {
-   //     NotificationService.getFlushBar("Modem ayarları yapılıyor ⚙️ ", "Modem ayarları gönderilidi ✔ ", context);
- //       characteristic.write(KomutService.rfModeSet(), withoutResponse: true);
+        //     NotificationService.getFlushBar("Modem ayarları yapılıyor ⚙️ ", "Modem ayarları gönderilidi ✔ ", context);
+        //       characteristic.write(KomutService.rfModeSet(), withoutResponse: true);
       }
 
       print("DATA=>" + value.toString());
@@ -134,7 +135,7 @@ class MainScreenState extends State {
 
   void parseMethod(List<int> tempData) {
     var hexData = HEX.encode(tempData);
- /*   var result = ParserService.parserStart(hexData);
+    /*   var result = ParserService.parserStart(hexData);
     if (result != null) {
       if (result == CalisacakFonksiyonGetir[CalisacakFonksiyon.rEADOUTS_OKU_ALL]) {
         setState(() {
@@ -159,7 +160,7 @@ class MainScreenState extends State {
     setState(() {
       this._selectedIndex = 0;
       _selectedSayacNo.text = "";
-   //   sayacList.clear();
+      //   sayacList.clear();
     });
     lottieHidingAnimationNoTimer("assets/animations/luna.json");
     await characteristic.write(data, withoutResponse: true);
@@ -168,7 +169,7 @@ class MainScreenState extends State {
   void meterFiltered(String sayacNo) {
     setState(() {
       this._selectedIndex = 1;
-  //    sayacList = sayacList.where((element) => element.sayacNo == sayacNo).toList();
+      //    sayacList = sayacList.where((element) => element.sayacNo == sayacNo).toList();
     });
   }
 
@@ -176,7 +177,7 @@ class MainScreenState extends State {
     setState(() {
       this._selectedIndex = 2;
       _selectedSayacNo.text = "";
-    //  sayacList.clear();
+      //  sayacList.clear();
     });
     lottieHidingAnimation("assets/animations/clean.json");
     await characteristic.write(data, withoutResponse: true);
@@ -187,15 +188,20 @@ class MainScreenState extends State {
   }
 
   void vanaAcIsmri(String sayacNo) async {
-  //  NotificationService.getFlushBarWithButton("Sayaç Numarası :" + sayacNo, "Vana aç iş emri gönderildi ✔ 💧", context);
+    //  NotificationService.getFlushBarWithButton("Sayaç Numarası :" + sayacNo, "Vana aç iş emri gönderildi ✔ 💧", context);
     // await characteristic.write(KomutService.meterOpen(sayacNo), withoutResponse: true);
     print(sayacNo);
   }
 
   Future<BluetoothCharacteristic> connectedDeviceDiscoverServices() async {
     List<BluetoothService> services = await device.discoverServices();
-    var servicesData = services.where((item) => item.uuid.toString().contains("ffe0")).toList();
-    var characteristicsData = servicesData.where((item) => item.characteristics.any((element) => element.uuid.toString().contains("ffe1"))).first;
+    var servicesData = services
+        .where((item) => item.uuid.toString().contains("ffe0"))
+        .toList();
+    var characteristicsData = servicesData
+        .where((item) => item.characteristics
+            .any((element) => element.uuid.toString().contains("ffe1")))
+        .first;
     return characteristicsData.characteristics[0];
   }
 

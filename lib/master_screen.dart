@@ -1,4 +1,3 @@
-
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
@@ -37,11 +36,11 @@ class MasterScreen extends StatelessWidget {
       this._selectedSayacNo,
       this._scrollController,
       {this.onVanaAcPressed,
-        this.onreadOutAll,
-        this.onExit,
-        this.onRefresh,
-        this.onMeterFiltered,
-        this.onClear});
+      this.onreadOutAll,
+      this.onExit,
+      this.onRefresh,
+      this.onMeterFiltered,
+      this.onClear});
 
   @override
   Widget build(BuildContext context) {
@@ -142,13 +141,13 @@ class MasterScreen extends StatelessWidget {
         children: <Widget>[
           _isShowAnimation == true
               ? Center(
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height - 130,
-              child: Lottie.asset(_isShowAnimationFileName,
-                  alignment: Alignment.center),
-            ),
-          )
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height - 130,
+                    child: Lottie.asset(_isShowAnimationFileName,
+                        alignment: Alignment.center),
+                  ),
+                )
               : sayacSayisiGoster(),
           ExpandableTheme(
               data: const ExpandableThemeData(
@@ -175,18 +174,18 @@ class MasterScreen extends StatelessWidget {
   void _onItemTapped(int value) {
     this._selectedIndex = value;
     if (value == 0) {
-  /*    NotificationService.getFlushBar("Okuma işlemi  📖", "Emir gönderildi ✔️ ", this.context);
+      /*    NotificationService.getFlushBar("Okuma işlemi  📖", "Emir gönderildi ✔️ ", this.context);
       onreadOutAll(KomutService.readOutAll());*/
     } else if (value == 1) {
       _selectedSayacNo.text = "";
       _showMyDialog();
     } else if (value == 2) {
-    /*  NotificationService.getFlushBar("Liste yenileniyor 🔄", "Emir gönderildi ✔️ ", this.context);
+      /*  NotificationService.getFlushBar("Liste yenileniyor 🔄", "Emir gönderildi ✔️ ", this.context);
       onreadOutAll(KomutService.readOutAll());*/
     } else if (value == 3) {
-     // NotificationService.getFlushBar(  "Liste temizleniyor 🗑", "Emir gönderildi ✔️ ", this.context);
+      // NotificationService.getFlushBar(  "Liste temizleniyor 🗑", "Emir gönderildi ✔️ ", this.context);
       //  onExit();
-     // onClear(KomutService.clearList());
+      // onClear(KomutService.clearList());
     }
   }
 
@@ -227,7 +226,7 @@ class MasterScreen extends StatelessWidget {
   Widget buildSayacNoField() {
     return TextFormField(
       decoration:
-      InputDecoration(labelText: "", hintText: "Sayaç no giriniz.."),
+          InputDecoration(labelText: "", hintText: "Sayaç no giriniz.."),
       controller: _selectedSayacNo,
       keyboardType: TextInputType.number,
     );
@@ -289,107 +288,107 @@ class MasterScreen extends StatelessWidget {
         itemBuilder: (BuildContext context, int position) {
           return ExpandableNotifier(
               child: Padding(
-                padding: const EdgeInsets.all(5),
-                child: Card(
-                  elevation: 7,
-                  clipBehavior: Clip.antiAlias,
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(
-                        height: 1,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: buildStatusIconBorder(sayacList[position].ceza),
-                            shape: BoxShape.rectangle,
-                          ),
-                        ),
+            padding: const EdgeInsets.all(5),
+            child: Card(
+              elevation: 7,
+              clipBehavior: Clip.antiAlias,
+              child: Column(
+                children: <Widget>[
+                  SizedBox(
+                    height: 1,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: buildStatusIconBorder(sayacList[position].ceza),
+                        shape: BoxShape.rectangle,
                       ),
-                      ScrollOnExpand(
-                        scrollOnExpand: true,
-                        scrollOnCollapse: false,
-                        child: Container(
-                          //color: Colors.white,
-                          color: position % 2 == 0
-                              ? Colors.grey.shade300
-                              : Colors.white,
-                          child: ExpandablePanel(
-                            theme: const ExpandableThemeData(
-                              headerAlignment:
+                    ),
+                  ),
+                  ScrollOnExpand(
+                    scrollOnExpand: true,
+                    scrollOnCollapse: false,
+                    child: Container(
+                      //color: Colors.white,
+                      color: position % 2 == 0
+                          ? Colors.grey.shade300
+                          : Colors.white,
+                      child: ExpandablePanel(
+                        theme: const ExpandableThemeData(
+                          headerAlignment:
                               ExpandablePanelHeaderAlignment.center,
-                              tapBodyToCollapse: true,
-                            ),
-                            header: ListTile(
-                                leading: CircleAvatar(
-                                  backgroundImage:
+                          tapBodyToCollapse: true,
+                        ),
+                        header: ListTile(
+                            leading: CircleAvatar(
+                              backgroundImage:
                                   AssetImage("assets/images/luna_sayac.png"),
-                                ),
-                                title: Padding(
-                                    padding: EdgeInsets.all(5),
-                                    child: Text(
-                                      "Sayaç No : " + sayacList[position].sayacNo,
-                                      style: Theme.of(context).textTheme.bodyText2,
-                                    )),
-                                subtitle: Text("Tüketim: " +
-                                    sayacList[position].toplamTuketim +
-                                    " m3"),
-                                trailing: Column(
-                                  children: <Widget>[
-                                    buildStatusIcon(sayacList[position].ceza),
-                                    // Icon(Icons.error_outline),
-                                    //  buildStatusUyari(sayacList[position].uyari), // Icon(Icons.error_outline),
-                                    buildVanaIcon(sayacList[position].vanaliMi),
-                                  ],
-                                )),
-                            collapsed: Text(
-                              loremIpsum,
-                              softWrap: true,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
                             ),
-                            expanded: Column(
+                            title: Padding(
+                                padding: EdgeInsets.all(5),
+                                child: Text(
+                                  "Sayaç No : " + sayacList[position].sayacNo,
+                                  style: Theme.of(context).textTheme.bodyText2,
+                                )),
+                            subtitle: Text("Tüketim: " +
+                                sayacList[position].toplamTuketim +
+                                " m3"),
+                            trailing: Column(
                               children: <Widget>[
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    Expanded(
-                                        child: buttonGetir(sayacList[position])),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Expanded(
-                                        child: cezaGetir(sayacList[position]),
-                                        flex: 2),
-                                    Padding(
-                                        padding: const EdgeInsets.only(right: 7)),
-                                    Expanded(
-                                        child: uyariGetir(sayacList[position]),
-                                        flex: 2),
-                                  ],
-                                ),
+                                buildStatusIcon(sayacList[position].ceza),
+                                // Icon(Icons.error_outline),
+                                //  buildStatusUyari(sayacList[position].uyari), // Icon(Icons.error_outline),
+                                buildVanaIcon(sayacList[position].vanaliMi),
+                              ],
+                            )),
+                        collapsed: Text(
+                          loremIpsum,
+                          softWrap: true,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        expanded: Column(
+                          children: <Widget>[
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Expanded(
+                                    child: buttonGetir(sayacList[position])),
                               ],
                             ),
-                            builder: (_, collapsed, expanded) {
-                              return Padding(
-                                padding: EdgeInsets.only(
-                                    left: 10, right: 10, bottom: 10),
-                                child: Expandable(
-                                  collapsed: collapsed,
-                                  expanded: expanded,
-                                  theme:
-                                  const ExpandableThemeData(crossFadePoint: 0),
-                                ),
-                              );
-                            },
-                          ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Expanded(
+                                    child: cezaGetir(sayacList[position]),
+                                    flex: 2),
+                                Padding(
+                                    padding: const EdgeInsets.only(right: 7)),
+                                Expanded(
+                                    child: uyariGetir(sayacList[position]),
+                                    flex: 2),
+                              ],
+                            ),
+                          ],
                         ),
+                        builder: (_, collapsed, expanded) {
+                          return Padding(
+                            padding: EdgeInsets.only(
+                                left: 10, right: 10, bottom: 10),
+                            child: Expandable(
+                              collapsed: collapsed,
+                              expanded: expanded,
+                              theme:
+                                  const ExpandableThemeData(crossFadePoint: 0),
+                            ),
+                          );
+                        },
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ));
+                ],
+              ),
+            ),
+          ));
         });
   }
 
@@ -408,35 +407,35 @@ class MasterScreen extends StatelessWidget {
           ),
           sayac.uyariTersAkis == true
               ? Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              const Expanded(
-                child: Text("-Ters akış"),
-              ),
-              const Expanded(
-                child: Icon(
-                  Icons.warning,
-                  color: Colors.yellow,
-                ),
-              ),
-            ],
-          )
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    const Expanded(
+                      child: Text("-Ters akış"),
+                    ),
+                    const Expanded(
+                      child: Icon(
+                        Icons.warning,
+                        color: Colors.yellow,
+                      ),
+                    ),
+                  ],
+                )
               : Row(),
           sayac.uyariSizintiveyaPatlak == true
               ? Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              const Expanded(
-                child: Text("-Sızıntı veya patlak"),
-              ),
-              const Expanded(
-                child: Icon(
-                  Icons.warning,
-                  color: Colors.yellow,
-                ),
-              ),
-            ],
-          )
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    const Expanded(
+                      child: Text("-Sızıntı veya patlak"),
+                    ),
+                    const Expanded(
+                      child: Icon(
+                        Icons.warning,
+                        color: Colors.yellow,
+                      ),
+                    ),
+                  ],
+                )
               : Row(),
         ],
       );
@@ -465,51 +464,51 @@ class MasterScreen extends StatelessWidget {
           ),
           sayac.cezaOptik == true
               ? Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              const Expanded(
-                child: Text("-Optik"),
-              ),
-              const Expanded(
-                child: Icon(
-                  Icons.error,
-                  color: Colors.red,
-                ),
-              ),
-            ],
-          )
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    const Expanded(
+                      child: Text("-Optik"),
+                    ),
+                    const Expanded(
+                      child: Icon(
+                        Icons.error,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ],
+                )
               : Row(),
           sayac.cezaKapak == true
               ? Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              const Expanded(
-                child: Text("-Kapak"),
-              ),
-              const Expanded(
-                child: Icon(
-                  Icons.error,
-                  color: Colors.red,
-                ),
-              ),
-            ],
-          )
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    const Expanded(
+                      child: Text("-Kapak"),
+                    ),
+                    const Expanded(
+                      child: Icon(
+                        Icons.error,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ],
+                )
               : Row(),
           sayac.cezaManyetikEtki == true
               ? Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              const Expanded(
-                child: Text("-Manyetik Etki"),
-              ),
-              const Expanded(
-                child: Icon(
-                  Icons.error,
-                  color: Colors.red,
-                ),
-              ),
-            ],
-          )
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    const Expanded(
+                      child: Text("-Manyetik Etki"),
+                    ),
+                    const Expanded(
+                      child: Icon(
+                        Icons.error,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ],
+                )
               : Row(),
         ],
       );

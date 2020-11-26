@@ -44,6 +44,7 @@ class Sayac {
     this.ceza = false;
     this.uyari = false;
   }
+
   Sayac.withParameter(String sayacNo, bool ceza) {
     this.sayacNo = sayacNo;
     this.ceza = ceza;
