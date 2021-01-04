@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'bluetoothClassic/bluetooth_classic.dart';
-import 'bluetoothLowEnergy/bluetooth_low_energy.dart';
+import 'bluetooth_classic/bluetooth_classic.dart';
+import 'bluetooth_low_energy/bluetooth_low_energy.dart';
 
 class BluetoothDevicesListScreen extends StatelessWidget {
   @override
@@ -12,11 +12,11 @@ class BluetoothDevicesListScreen extends StatelessWidget {
         title: Text("LUNA Remote Reading"),
         actions: <Widget>[],
       ),
-      body: buildbody(context), //buildConnectionList(),
+      body: _buildBody(context), //buildConnectionList(),
     );
   }
 
-  buildbody(BuildContext context) {
+  _buildBody(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,

@@ -44,7 +44,7 @@ class _BluetoothClassicScreen extends State<BluetoothClassicScreen> {
   @override
   void initState() {
     if (this.mounted) {
-      lottieHidingAnimationNoTimer("assets/animations/luna.json");
+      //lottieHidingAnimationNoTimer("assets/animations/luna.json");
       BluetoothConnection.toAddress(widget.device.address).then((_connection) {
         connection = _connection;
         connectedDeviceService().then((data) {
@@ -92,7 +92,7 @@ class _BluetoothClassicScreen extends State<BluetoothClassicScreen> {
         _selectedSayacNo,
         _scrollController,
         onVanaAcPressed: vanaAcIsmri,
-        onreadOutAll: readOutAll,
+        onReadOutAll: readOutAll,
         onRefresh: onRefresh,
         onExit: exitMethod,
         onMeterFiltered: meterFiltered,

@@ -8,7 +8,7 @@ import 'package:lottie/lottie.dart';
 import 'models/meter_model.dart';
 
 class MasterScreen extends StatelessWidget {
-  final void Function(List<int>) onreadOutAll;
+  final void Function(List<int>) onReadOutAll;
   final void Function(List<int>) onRefresh;
   final void Function(List<int>) onClear;
   final void Function() onExit;
@@ -36,7 +36,7 @@ class MasterScreen extends StatelessWidget {
       this._selectedSayacNo,
       this._scrollController,
       {this.onVanaAcPressed,
-      this.onreadOutAll,
+      this.onReadOutAll,
       this.onExit,
       this.onRefresh,
       this.onMeterFiltered,

@@ -90,7 +90,7 @@ class MainScreenState extends State {
       _selectedSayacNo,
       _scrollController,
       onVanaAcPressed: vanaAcIsmri,
-      onreadOutAll: readOutAll,
+      onReadOutAll: readOutAll,
       onExit: exitMethod,
       onRefresh: readOutAll,
       onMeterFiltered: meterFiltered,
